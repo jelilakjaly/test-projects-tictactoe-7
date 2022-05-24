@@ -1,7 +1,5 @@
 ## Lets go
 
-This is an updated version of tictactoe-1 game. 
+This is an updated version of tictactoe-2 game. 
 
-Here we add numbers to each cell so the players can easily distinguish it from one another.
-
-We also move the Board and Cell datatypes to it's own module
+Here I try to DRY by modifying the functions
