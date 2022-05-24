@@ -48,9 +48,6 @@ instance Show Player where
     show PlayerX = "Player x"
 
 
-getWinner :: Board -> Maybe Player
-getWinner = undefined
-
 playerOWon :: Board -> Bool
 playerOWon b = playerWon b PlayerO
 
