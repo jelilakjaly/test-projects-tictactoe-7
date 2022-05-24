@@ -7,11 +7,6 @@ instance Show Cell where
     show X = "X"
     show O = "O"
 
-charOf :: Cell -> Char 
-charOf E = ' '
-charOf X = 'X'
-charOf O = 'O'
-
 data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
 
 rawBoardStr :: [Char]
@@ -29,16 +24,21 @@ instance Show Board where
         where 
             replace :: Char -> Char 
             replace c = case c of 
-                '1' -> if c1 /= E then charOf c1 else '1'
-                '2' -> if c2 /= E then charOf c2 else '2'
-                '3' -> if c3 /= E then charOf c3 else '3'
-                '4' -> if c4 /= E then charOf c4 else '4'
-                '5' -> if c5 /= E then charOf c5 else '5'
-                '6' -> if c6 /= E then charOf c6 else '6'
-                '7' -> if c7 /= E then charOf c7 else '7'
-                '8' -> if c8 /= E then charOf c8 else '8'
-                '9' -> if c9 /= E then charOf c9 else '9'
+                '1' -> cellToChar c1 '1'
+                '2' -> cellToChar c2 '2'
+                '3' -> cellToChar c3 '3'
+                '4' -> cellToChar c4 '4'
+                '5' -> cellToChar c5 '5'
+                '6' -> cellToChar c6 '6'
+                '7' -> cellToChar c7 '7'
+                '8' -> cellToChar c8 '8'
+                '9' -> cellToChar c9 '9'
                 c   -> c
+            cellToChar :: Cell -> Char -> Char 
+            cellToChar cell char = case cell of
+                E -> char
+                X -> 'X'
+                O -> 'O'
 
 
 data Player = PlayerO | PlayerX 
