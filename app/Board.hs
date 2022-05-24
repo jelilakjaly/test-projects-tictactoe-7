@@ -29,15 +29,15 @@ instance Show Board where
         where 
             replace :: Char -> Char 
             replace c = case c of 
-                '1' -> charOf c1
-                '2' -> charOf c2
-                '3' -> charOf c3
-                '4' -> charOf c4
-                '5' -> charOf c5
-                '6' -> charOf c6 
-                '7' -> charOf c7
-                '8' -> charOf c8
-                '9' -> charOf c9
+                '1' -> if c1 /= E then charOf c1 else '1'
+                '2' -> if c2 /= E then charOf c2 else '2'
+                '3' -> if c3 /= E then charOf c3 else '3'
+                '4' -> if c4 /= E then charOf c4 else '4'
+                '5' -> if c5 /= E then charOf c5 else '5'
+                '6' -> if c6 /= E then charOf c6 else '6'
+                '7' -> if c7 /= E then charOf c7 else '7'
+                '8' -> if c8 /= E then charOf c8 else '8'
+                '9' -> if c9 /= E then charOf c9 else '9'
                 c   -> c
 
 
