@@ -40,6 +40,8 @@ instance Show Board where
                 X -> 'X'
                 O -> 'O'
 
+boardToList :: Board -> [Cell]
+boardToList (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) = [c1,c2,c3,c4,c5,c6,c7,c8,c9]
 
 data Player = PlayerO | PlayerX 
 
