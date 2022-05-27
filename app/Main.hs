@@ -4,8 +4,13 @@ module Main where
 import           Board
 
 
+data GameStatus = Playing | OWon | XWon | NoWinner deriving Eq
 
-
+instance Show GameStatus where
+    show Playing  = "Playing"
+    show OWon     = "Player O Won"
+    show XWon     = "Player X Won"
+    show NoWinner = "No one wins"
 
 
 -- clears the terminal on linux
