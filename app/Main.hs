@@ -12,6 +12,11 @@ instance Show GameStatus where
     show XWon     = "Player X Won"
     show NoWinner = "No one wins"
 
+getGameStatus :: Board -> GameStatus
+getGameStatus board | playerOWon board  = OWon
+                    | playerXWon board  = XWon
+                    | boardIsFull board = NoWinner
+                    | otherwise         = Playing
 
 -- clears the terminal on linux
 clearScreen :: IO ()
