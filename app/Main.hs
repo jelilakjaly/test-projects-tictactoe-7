@@ -58,12 +58,6 @@ updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) player num =
                 else board
         _ -> board
 
-    where 
-        cellOfPlayer :: Player -> Cell
-        cellOfPlayer player = case player of 
-            PlayerO -> O
-            playerX -> X
-
 
 
 updateGame :: Board -> Player -> IO ()

@@ -78,11 +78,12 @@ playerWon board player = foldr ((\a b -> if a then a else b) . all (== c))
                                False
                                (boardToRows board)
   where
-    c :: Cell
-    c = case player of
-        PlayerO -> O
-        PlayerX -> X
+      c = cellOfPlayer player
 
+cellOfPlayer :: Player -> Cell 
+cellOfPlayer player = case player of 
+    PlayerO -> O
+    PlayerX -> X
 
 nextPlayer :: Player -> Player
 nextPlayer player = case player of
