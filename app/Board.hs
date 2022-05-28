@@ -2,10 +2,6 @@ module Board where
 
 data Cell = E | X | O deriving (Eq)
 
-instance Show Cell where
-    show E = ""
-    show X = "X"
-    show O = "O"
 
 data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
 
