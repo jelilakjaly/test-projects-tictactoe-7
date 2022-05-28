@@ -50,8 +50,7 @@ updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) player num
     | num == 9 && c9 == E = Board c1 c2 c3 c4 c5 c6 c7 c8 (cellOfPlayer player)
     | otherwise           = board
 
-
-
+{-
 updateGame :: Board -> Player -> IO ()
 updateGame board player = do
     clearScreen
@@ -75,7 +74,28 @@ updateGame board player = do
                         Nothing -> updateGame board player
                         Just n  -> updateGame (updateBoard board player n)
                                               (nextPlayer player)
-
+-}
+updateGame :: Board -> Player -> IO ()
+updateGame board player = do 
+    clearScreen
+    putStrLn $ show board 
+    case getGameStatus board of
+        OWon -> do 
+            putStrLn "Player O Wins."
+            return ()
+        XWon -> do 
+            putStrLn "Player X Wins."
+            return ()
+        NoWinner -> do 
+            putStrLn "No one wins."
+            return ()
+        Playing -> do
+            putStrLn (show player ++ ", mark your position (1-9)")
+            numStr <- getLine
+            case strToNumber numStr of
+                Nothing -> updateGame board player
+                Just n  -> updateGame (updateBoard board player n)
+                                      (nextPlayer player)
 
 
 main :: IO ()
