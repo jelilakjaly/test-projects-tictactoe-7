@@ -29,21 +29,6 @@ strToNumber n = case n of
     "9" -> Just 9
     _   -> Nothing
 
--- update the cell in board only if it is empty
-updateBoard :: Board -> Cell -> Int -> Board
-updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
-    | num == 1 && c1 == E = Board cell c2 c3 c4 c5 c6 c7 c8 c9
-    | num == 2 && c2 == E = Board c1 cell c3 c4 c5 c6 c7 c8 c9
-    | num == 3 && c3 == E = Board c1 c2 cell c4 c5 c6 c7 c8 c9
-    | num == 4 && c4 == E = Board c1 c2 c3 cell c5 c6 c7 c8 c9
-    | num == 5 && c5 == E = Board c1 c2 c3 c4 cell c6 c7 c8 c9
-    | num == 6 && c6 == E = Board c1 c2 c3 c4 c5 cell c7 c8 c9
-    | num == 7 && c7 == E = Board c1 c2 c3 c4 c5 c6 cell c8 c9
-    | num == 8 && c8 == E = Board c1 c2 c3 c4 c5 c6 c7 cell c9
-    | num == 9 && c9 == E = Board c1 c2 c3 c4 c5 c6 c7 c8 cell
-    | otherwise           = board
-
-
 advanceGame :: Board -> Player -> IO ()
 advanceGame board player = do
     clearScreen
