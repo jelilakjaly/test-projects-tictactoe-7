@@ -1,5 +1,5 @@
 ## Lets go
 
-This is an updated version of tictactoe-2 game. 
+This is an updated version of tictactoe-3 game. 
 
-Here I try to DRY by modifying the functions
+Here I try to DRY even more
