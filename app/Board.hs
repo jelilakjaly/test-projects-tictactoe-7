@@ -70,14 +70,15 @@ playerXWon :: Board -> Bool
 playerXWon b = playerWon b PlayerX
 
 playerWon :: Board -> Player -> Bool
-playerWon board player = foldr ((\a b -> if a then a else b) . all (== c))
-                               False
-                               (boardToRows board)
-  where
-      c = cellOfPlayer player
+playerWon board player = True `elem` checkRows 
+    where 
+        c = cellOfPlayer player
 
-cellOfPlayer :: Player -> Cell 
-cellOfPlayer player = case player of 
+        checkRows :: [Bool]
+        checkRows = map (all (==c)) (boardToRows board)
+
+cellOfPlayer :: Player -> Cell
+cellOfPlayer player = case player of
     PlayerO -> O
     PlayerX -> X
 
