@@ -44,8 +44,8 @@ updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
     | otherwise           = board
 
 
-updateGame :: Board -> Player -> IO ()
-updateGame board player = do
+advanceGame :: Board -> Player -> IO ()
+advanceGame board player = do
     clearScreen
     putStrLn $ show board
     case getGameStatus board of
@@ -62,13 +62,13 @@ updateGame board player = do
             putStrLn (show player ++ ", mark your position (1-9)")
             numStr <- getLine
             case strToNumber numStr of
-                Nothing -> updateGame board player
+                Nothing -> advanceGame board player
                 Just n ->
-                    updateGame (updateBoard board (cellOfPlayer player) n) (nextPlayer player)
+                    advanceGame (updateBoard board (cellOfPlayer player) n) (nextPlayer player)
 
 
 main :: IO ()
 main = do
     let board  = Board E E E E E E E E E
     let player = PlayerO
-    updateGame board player
+    advanceGame board player
