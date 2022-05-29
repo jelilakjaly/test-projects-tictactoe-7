@@ -1,40 +1,66 @@
 module Board where
+import           Data.List                      ( insert )
 
 data Cell = E | X | O deriving (Eq)
 
 
 data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
 
-rawBoardStr :: [Char]
-rawBoardStr =
-    "+---+---+---+\n\
-    \| 1 | 2 | 3 |\n\
-    \+---+---+---+\n\
-    \| 4 | 5 | 6 |\n\
-    \+---+---+---+\n\
-    \| 7 | 8 | 9 |\n\
-    \+---+---+---+"
+boardLine = "+---------+---------+---------+"
+
+makeLines :: Cell -> Cell -> Cell -> [Char]
+makeLines c1 c2 c3 =
+    makeLine1 c1 c2 c3
+        ++ "\n"
+        ++ makeLine2 c1 c2 c3
+        ++ "\n"
+        ++ makeLine3 c1 c2 c3
+
+makeLine1 :: Cell -> Cell -> Cell -> [Char]
+makeLine1 c1 c2 c3 = 
+    "|" ++ makePiece1 c1 ++ "|" ++ makePiece1 c2 ++ "|" ++ makePiece1 c3 ++ "|"
+
+makeLine2 :: Cell -> Cell -> Cell -> [Char]
+makeLine2 c4 c5 c6 = 
+    "|" ++ makePiece2 c4 ++ "|" ++ makePiece2 c5 ++ "|" ++ makePiece2 c6 ++ "|"
+
+makeLine3 :: Cell -> Cell -> Cell -> [Char]
+makeLine3 c7 c8 c9 = 
+    "|" ++ makePiece3 c7 ++ "|" ++ makePiece3 c8 ++ "|" ++ makePiece3 c9 ++ "|"
+
+makePiece1 :: Cell -> [Char]
+makePiece1 E = "         "
+makePiece1 O = "  * * *  "
+makePiece1 X = "    *    "
+
+makePiece2 :: Cell -> [Char]
+makePiece2 E = "         "
+makePiece2 O = "  * * *  "
+makePiece2 X = "  * * *  "
+
+makePiece3 :: Cell -> [Char]
+makePiece3 E = "         "
+makePiece3 O = "  * * *  "
+makePiece3 X = "    *    "
+
 
 instance Show Board where
-    show (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) = map replace rawBoardStr
-      where
-        replace :: Char -> Char
-        replace c = case c of
-            '1' -> cellToChar c1 '1'
-            '2' -> cellToChar c2 '2'
-            '3' -> cellToChar c3 '3'
-            '4' -> cellToChar c4 '4'
-            '5' -> cellToChar c5 '5'
-            '6' -> cellToChar c6 '6'
-            '7' -> cellToChar c7 '7'
-            '8' -> cellToChar c8 '8'
-            '9' -> cellToChar c9 '9'
-            c   -> c
-        cellToChar :: Cell -> Char -> Char
-        cellToChar cell char = case cell of
-            E -> char
-            X -> 'X'
-            O -> 'O'
+    show (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
+        boardLine
+            ++ "\n"
+            ++ makeLines c1 c2 c3
+            ++ "\n"
+            ++ boardLine
+            ++ "\n"
+            ++ makeLines c4 c5 c6
+            ++ "\n"
+            ++ boardLine
+            ++ "\n"
+            ++ makeLines c7 c8 c9
+            ++ "\n"
+            ++ boardLine
+            ++ "\n"
+
 
 boardToList :: Board -> [Cell]
 boardToList (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
@@ -84,12 +110,12 @@ playerXWon :: Board -> Bool
 playerXWon b = playerWon b PlayerX
 
 playerWon :: Board -> Player -> Bool
-playerWon board player = True `elem` checkRows 
-    where 
-        c = cellOfPlayer player
+playerWon board player = True `elem` checkRows
+  where
+    c = cellOfPlayer player
 
-        checkRows :: [Bool]
-        checkRows = map (all (==c)) (boardToRows board)
+    checkRows :: [Bool]
+    checkRows = map (all (== c)) (boardToRows board)
 
 cellOfPlayer :: Player -> Cell
 cellOfPlayer player = case player of
