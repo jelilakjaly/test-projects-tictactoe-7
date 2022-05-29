@@ -1,4 +1,4 @@
-## Lets go
+## Tic Tac Toe Game 5
 
 This is an updated version of tictactoe-4 game. 
 
@@ -20,3 +20,5 @@ New Board looks like this.
 |         |         |    *    |
 +---------+---------+---------+
 ```
+
+I added Index to E so that I can print it on Show instance. Does not seem to be a good strategy???
