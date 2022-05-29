@@ -5,7 +5,7 @@ data Cell a = E a | X | O deriving (Eq)
 
 isE :: Cell a -> Bool
 isE (E _) = True
-isE _ = False
+isE _     = False
 
 
 data Board = Board (Cell Int)
@@ -47,13 +47,13 @@ makePiece1 X     = "    *    "
 
 makePiece2 :: Cell Int -> [Char]
 makePiece2 (E i) = "    " ++ show i ++ "    "
-makePiece2 O = "  * * *  "
-makePiece2 X = "  * * *  "
+makePiece2 O     = "  * * *  "
+makePiece2 X     = "  * * *  "
 
 makePiece3 :: Cell Int -> [Char]
 makePiece3 (E _) = "         "
-makePiece3 O = "  * * *  "
-makePiece3 X = "    *    "
+makePiece3 O     = "  * * *  "
+makePiece3 X     = "    *    "
 
 
 instance Show Board where
@@ -105,7 +105,7 @@ updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
     | num == 7 && isE c7 = Board c1 c2 c3 c4 c5 c6 cell c8 c9
     | num == 8 && isE c8 = Board c1 c2 c3 c4 c5 c6 c7 cell c9
     | num == 9 && isE c9 = Board c1 c2 c3 c4 c5 c6 c7 c8 cell
-    | otherwise           = board
+    | otherwise          = board
 
 
 data Player = PlayerO | PlayerX

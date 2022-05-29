@@ -48,12 +48,13 @@ advanceGame board player = do
             numStr <- getLine
             case strToNumber numStr of
                 Nothing -> advanceGame board player
-                Just n ->
-                    advanceGame (updateBoard board (cellOfPlayer player) n) (nextPlayer player)
+                Just n  -> advanceGame
+                    (updateBoard board (cellOfPlayer player) n)
+                    (nextPlayer player)
 
 
 main :: IO ()
 main = do
-    let board  = Board (E 1) (E 2) (E 3) (E 4) (E 5) (E 6) (E 7) (E 8) (E 9)
+    let board = Board (E 1) (E 2) (E 3) (E 4) (E 5) (E 6) (E 7) (E 8) (E 9)
     let player = PlayerO
     advanceGame board player
