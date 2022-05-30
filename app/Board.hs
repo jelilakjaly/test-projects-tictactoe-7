@@ -8,19 +8,11 @@ isE (E _) = True
 isE _     = False
 
 
-data Board = Board (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
-                   (Cell Int)
+data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
 
 boardLine = "+---------+---------+---------+"
 
-makeLines :: Cell Int -> Cell Int -> Cell Int -> [Char]
+makeLines :: Cell -> Cell -> Cell -> [Char]
 makeLines c1 c2 c3 =
     makeLine1 c1 c2 c3
         ++ "\n"
@@ -28,29 +20,29 @@ makeLines c1 c2 c3 =
         ++ "\n"
         ++ makeLine3 c1 c2 c3
 
-makeLine1 :: Cell Int -> Cell Int -> Cell Int -> [Char]
+makeLine1 :: Cell -> Cell -> Cell -> [Char]
 makeLine1 c1 c2 c3 =
     "|" ++ makePiece1 c1 ++ "|" ++ makePiece1 c2 ++ "|" ++ makePiece1 c3 ++ "|"
 
-makeLine2 :: Cell Int -> Cell Int -> Cell Int -> [Char]
+makeLine2 :: Cell -> Cell -> Cell -> [Char]
 makeLine2 c4 c5 c6 =
     "|" ++ makePiece2 c4 ++ "|" ++ makePiece2 c5 ++ "|" ++ makePiece2 c6 ++ "|"
 
-makeLine3 :: Cell Int -> Cell Int -> Cell Int -> [Char]
+makeLine3 :: Cell -> Cell -> Cell -> [Char]
 makeLine3 c7 c8 c9 =
     "|" ++ makePiece3 c7 ++ "|" ++ makePiece3 c8 ++ "|" ++ makePiece3 c9 ++ "|"
 
-makePiece1 :: Cell Int -> [Char]
+makePiece1 :: Cell -> [Char]
 makePiece1 (E _) = "         "
 makePiece1 O     = "  * * *  "
 makePiece1 X     = "    *    "
 
-makePiece2 :: Cell Int -> [Char]
+makePiece2 :: Cell -> [Char]
 makePiece2 (E i) = "    " ++ show i ++ "    "
 makePiece2 O     = "  * * *  "
 makePiece2 X     = "  * * *  "
 
-makePiece3 :: Cell Int -> [Char]
+makePiece3 :: Cell -> [Char]
 makePiece3 (E _) = "         "
 makePiece3 O     = "  * * *  "
 makePiece3 X     = "    *    "
@@ -74,11 +66,11 @@ instance Show Board where
             ++ "\n"
 
 
-boardToList :: Board -> [Cell Int]
+boardToList :: Board -> [Cell]
 boardToList (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     [c1, c2, c3, c4, c5, c6, c7, c8, c9]
 
-boardToRows :: Board -> [[Cell Int]]
+boardToRows :: Board -> [[Cell]]
 boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     [ [c1, c2, c3]
     , [c4, c5, c6]
@@ -91,13 +83,14 @@ boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     ]
 
 boardMap :: (Cell -> Cell) -> Board -> Board
-boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) = Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
+boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
+    Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
 
 boardIsFull :: Board -> Bool
 boardIsFull board = not (any isE (boardToList board))
 
 -- update the cell in board only if it is empty
-updateBoard :: Board -> Cell Int -> Int -> Board
+updateBoard :: Board -> Cell -> Int -> Board
 updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
     | num == 1 && isE c1 = Board cell c2 c3 c4 c5 c6 c7 c8 c9
     | num == 2 && isE c2 = Board c1 cell c3 c4 c5 c6 c7 c8 c9
@@ -132,7 +125,7 @@ playerWon board player = True `elem` checkRows
     checkRows :: [Bool]
     checkRows = map (all (== c)) (boardToRows board)
 
-cellOfPlayer :: Player -> Cell Int
+cellOfPlayer :: Player -> Cell
 cellOfPlayer player = case player of
     PlayerO -> O
     PlayerX -> X
