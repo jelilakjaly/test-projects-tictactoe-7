@@ -97,15 +97,15 @@ boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     , [c3, c5, c7]
     ]
 
-boardMap :: (Cell -> Cell) -> Board Cell -> Board Cell
-boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
-    Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
+--boardMap :: (Cell -> Cell) -> Board Cell -> Board Cell
+--boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
+--    Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
 
 boardIsFull :: Board Cell -> Bool
 boardIsFull board = not (any isE (boardToList board))
 
 updateBoard :: Board Cell -> Cell -> Board Cell
-updateBoard board cell = boardMap func board
+updateBoard board cell = fmap func board
   where
     func :: Cell -> Cell
     func c@(E i) = if indexOf cell == i then cell else c
