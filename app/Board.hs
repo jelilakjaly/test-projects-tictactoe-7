@@ -1,5 +1,4 @@
 module Board where
-import           Data.List                      ( insert )
 
 data Cell = E Int | X Int | O Int deriving (Eq)
 
@@ -133,10 +132,10 @@ playerWon board player = True `elem` checkRows
         PlayerO -> isO
         PlayerX -> isX
 
-cellOfPlayer :: Player -> Int -> Cell
-cellOfPlayer player index = case player of
-    PlayerO -> O index
-    PlayerX -> X index
+--cellOfPlayer :: Player -> Int -> Cell
+--cellOfPlayer player index = case player of
+--    PlayerO -> O index
+--    PlayerX -> X index
 
 nextPlayer :: Player -> Player
 nextPlayer player = case player of
