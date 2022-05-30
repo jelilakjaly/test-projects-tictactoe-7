@@ -49,7 +49,7 @@ advanceGame board player = do
             case strToNumber numStr of
                 Nothing -> advanceGame board player
                 Just n  -> advanceGame
-                    (updateBoard board (cellOfPlayer player) n)
+                    (updateBoard board (cellOfPlayer player n)) 
                     (nextPlayer player)
 
 

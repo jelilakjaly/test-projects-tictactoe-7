@@ -1,12 +1,24 @@
 module Board where
 import           Data.List                      ( insert )
 
-data Cell = E Int | X | O deriving (Eq)
+data Cell = E Int | X Int | O Int deriving (Eq)
 
-isE :: Cell a -> Bool
+isE :: Cell -> Bool
 isE (E _) = True
 isE _     = False
 
+isO :: Cell -> Bool
+isO (O _) = True
+isO _     = False
+
+isX :: Cell -> Bool
+isX (X _) = True
+isX _     = False
+
+indexOf :: Cell -> Int
+indexOf (E i) = i
+indexOf (O i) = i
+indexOf (X i) = i
 
 data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
 
@@ -34,18 +46,18 @@ makeLine3 c7 c8 c9 =
 
 makePiece1 :: Cell -> [Char]
 makePiece1 (E _) = "         "
-makePiece1 O     = "  * * *  "
-makePiece1 X     = "    *    "
+makePiece1 (O _) = "  * * *  "
+makePiece1 (X _) = "    *    "
 
 makePiece2 :: Cell -> [Char]
 makePiece2 (E i) = "    " ++ show i ++ "    "
-makePiece2 O     = "  * * *  "
-makePiece2 X     = "  * * *  "
+makePiece2 (O _) = "  * * *  "
+makePiece2 (X _) = "  * * *  "
 
 makePiece3 :: Cell -> [Char]
 makePiece3 (E _) = "         "
-makePiece3 O     = "  * * *  "
-makePiece3 X     = "    *    "
+makePiece3 (O _) = "  * * *  "
+makePiece3 (X _) = "    *    "
 
 
 instance Show Board where
@@ -90,7 +102,7 @@ boardIsFull :: Board -> Bool
 boardIsFull board = not (any isE (boardToList board))
 
 -- update the cell in board only if it is empty
-updateBoard :: Board -> Cell -> Int -> Board
+{-updateBoard :: Board -> Cell -> Int -> Board
 updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
     | num == 1 && isE c1 = Board cell c2 c3 c4 c5 c6 c7 c8 c9
     | num == 2 && isE c2 = Board c1 cell c3 c4 c5 c6 c7 c8 c9
@@ -101,7 +113,14 @@ updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
     | num == 7 && isE c7 = Board c1 c2 c3 c4 c5 c6 cell c8 c9
     | num == 8 && isE c8 = Board c1 c2 c3 c4 c5 c6 c7 cell c9
     | num == 9 && isE c9 = Board c1 c2 c3 c4 c5 c6 c7 c8 cell
-    | otherwise          = board
+    | otherwise          = board-}
+
+updateBoard :: Board -> Cell -> Board
+updateBoard board cell = boardMap func board
+  where
+    func :: Cell -> Cell
+    func c@(E i) = if indexOf cell == i then cell else c
+    func x       = x
 
 
 data Player = PlayerO | PlayerX
@@ -120,15 +139,18 @@ playerXWon b = playerWon b PlayerX
 playerWon :: Board -> Player -> Bool
 playerWon board player = True `elem` checkRows
   where
-    c = cellOfPlayer player
-
     checkRows :: [Bool]
-    checkRows = map (all (== c)) (boardToRows board)
+    checkRows = map (all isFunc) (boardToRows board)
 
-cellOfPlayer :: Player -> Cell
-cellOfPlayer player = case player of
-    PlayerO -> O
-    PlayerX -> X
+    isFunc :: (Cell -> Bool)
+    isFunc = case player of
+        PlayerO -> isO
+        PlayerX -> isX
+
+cellOfPlayer :: Player -> Int -> Cell
+cellOfPlayer player index = case player of
+    PlayerO -> O index
+    PlayerX -> X index
 
 nextPlayer :: Player -> Player
 nextPlayer player = case player of
