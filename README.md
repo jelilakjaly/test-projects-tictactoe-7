@@ -20,5 +20,3 @@ New Board looks like this.
 |         |         |    *    |
 +---------+---------+---------+
 ```
-
-I added Index to E so that I can print it on Show instance. Does not seem to be a good strategy???

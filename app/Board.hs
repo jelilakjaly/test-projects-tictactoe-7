@@ -101,20 +101,6 @@ boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
 boardIsFull :: Board -> Bool
 boardIsFull board = not (any isE (boardToList board))
 
--- update the cell in board only if it is empty
-{-updateBoard :: Board -> Cell -> Int -> Board
-updateBoard board@(Board c1 c2 c3 c4 c5 c6 c7 c8 c9) cell num
-    | num == 1 && isE c1 = Board cell c2 c3 c4 c5 c6 c7 c8 c9
-    | num == 2 && isE c2 = Board c1 cell c3 c4 c5 c6 c7 c8 c9
-    | num == 3 && isE c3 = Board c1 c2 cell c4 c5 c6 c7 c8 c9
-    | num == 4 && isE c4 = Board c1 c2 c3 cell c5 c6 c7 c8 c9
-    | num == 5 && isE c5 = Board c1 c2 c3 c4 cell c6 c7 c8 c9
-    | num == 6 && isE c6 = Board c1 c2 c3 c4 c5 cell c7 c8 c9
-    | num == 7 && isE c7 = Board c1 c2 c3 c4 c5 c6 cell c8 c9
-    | num == 8 && isE c8 = Board c1 c2 c3 c4 c5 c6 c7 cell c9
-    | num == 9 && isE c9 = Board c1 c2 c3 c4 c5 c6 c7 c8 cell
-    | otherwise          = board-}
-
 updateBoard :: Board -> Cell -> Board
 updateBoard board cell = boardMap func board
   where
