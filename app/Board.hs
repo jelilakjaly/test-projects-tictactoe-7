@@ -20,7 +20,7 @@ indexOf (E i) = i
 indexOf (O i) = i
 indexOf (X i) = i
 
-data Board = Board Cell Cell Cell Cell Cell Cell Cell Cell Cell
+data Board a = Board a a a a a a a a a
 
 boardLine = "+---------+---------+---------+"
 
@@ -60,29 +60,29 @@ makePiece3 (O _) = "  * * *  "
 makePiece3 (X _) = "    *    "
 
 
-instance Show Board where
-    show (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
-        boardLine
-            ++ "\n"
-            ++ makeLines c1 c2 c3
-            ++ "\n"
-            ++ boardLine
-            ++ "\n"
-            ++ makeLines c4 c5 c6
-            ++ "\n"
-            ++ boardLine
-            ++ "\n"
-            ++ makeLines c7 c8 c9
-            ++ "\n"
-            ++ boardLine
-            ++ "\n"
+drawBoard :: Board Cell -> String
+drawBoard (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
+    boardLine
+        ++ "\n"
+        ++ makeLines c1 c2 c3
+        ++ "\n"
+        ++ boardLine
+        ++ "\n"
+        ++ makeLines c4 c5 c6
+        ++ "\n"
+        ++ boardLine
+        ++ "\n"
+        ++ makeLines c7 c8 c9
+        ++ "\n"
+        ++ boardLine
+        ++ "\n"
 
 
-boardToList :: Board -> [Cell]
+boardToList :: Board Cell -> [Cell]
 boardToList (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     [c1, c2, c3, c4, c5, c6, c7, c8, c9]
 
-boardToRows :: Board -> [[Cell]]
+boardToRows :: Board Cell -> [[Cell]]
 boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     [ [c1, c2, c3]
     , [c4, c5, c6]
@@ -94,14 +94,14 @@ boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     , [c3, c5, c7]
     ]
 
-boardMap :: (Cell -> Cell) -> Board -> Board
+boardMap :: (Cell -> Cell) -> Board Cell -> Board Cell
 boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
 
-boardIsFull :: Board -> Bool
+boardIsFull :: Board Cell -> Bool
 boardIsFull board = not (any isE (boardToList board))
 
-updateBoard :: Board -> Cell -> Board
+updateBoard :: Board Cell -> Cell -> Board Cell
 updateBoard board cell = boardMap func board
   where
     func :: Cell -> Cell
@@ -116,13 +116,13 @@ instance Show Player where
     show PlayerX = "Player x"
 
 
-playerOWon :: Board -> Bool
+playerOWon :: Board Cell -> Bool
 playerOWon b = playerWon b PlayerO
 
-playerXWon :: Board -> Bool
+playerXWon :: Board Cell -> Bool
 playerXWon b = playerWon b PlayerX
 
-playerWon :: Board -> Player -> Bool
+playerWon :: Board Cell -> Player -> Bool
 playerWon board player = True `elem` checkRows
   where
     checkRows :: [Bool]
