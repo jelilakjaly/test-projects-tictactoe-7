@@ -1,22 +1,6 @@
-## Tic Tac Toe Game 5
+## Tic Tac Toe Game 6
 
-This is an updated version of tictactoe-4 game. 
+This is an updated version of tictactoe-5 game. 
 
-Here I make draw bigger board on the screen and and add an index to each cell to simplify things if possible.
-
-New Board looks like this.
-```
-+---------+---------+---------+
-|  * * *  |         |    *    |
-|  * * *  |    2    |  * * *  |
-|  * * *  |         |    *    |
-+---------+---------+---------+
-|  * * *  |  * * *  |    *    |
-|  * * *  |  * * *  |  * * *  |
-|  * * *  |  * * *  |    *    |
-+---------+---------+---------+
-|         |         |    *    |
-|    7    |    8    |  * * *  |
-|         |         |    *    |
-+---------+---------+---------+
-```
+Here I update the Board to make it more abstract and make it instance of functor
+to adjust the codes to make use of it
