@@ -1,7 +1,7 @@
 module Board where
 import           Data.List                      ( insert )
 
-data Cell a = E a | X | O deriving (Eq)
+data Cell = E Int | X | O deriving (Eq)
 
 isE :: Cell a -> Bool
 isE (E _) = True
@@ -89,6 +89,9 @@ boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     , [c1, c5, c9]
     , [c3, c5, c7]
     ]
+
+boardMap :: (Cell -> Cell) -> Board -> Board
+boardMap f (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) = Board (f c1) (f c2) (f c3) (f c4) (f c5) (f c6) (f c7) (f c8) (f c9)
 
 boardIsFull :: Board -> Bool
 boardIsFull board = not (any isE (boardToList board))
