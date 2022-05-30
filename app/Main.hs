@@ -49,8 +49,13 @@ advanceGame board player = do
             case strToNumber numStr of
                 Nothing -> advanceGame board player
                 Just n  -> advanceGame
-                    (updateBoard board (cellOfPlayer player n))
+                    (updateBoard board (makeCell player n))
                     (nextPlayer player)
+                  where
+                    makeCell :: Player -> Int -> Cell
+                    makeCell player n = case player of
+                        PlayerO -> O n
+                        PlayerX -> X n
 
 
 main :: IO ()
