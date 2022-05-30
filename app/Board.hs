@@ -81,9 +81,10 @@ instance Functor Board where
     fmap f (Board x1 x2 x3 x4 x5 x6 x7 x8 x9) =
         Board (f x1) (f x2) (f x3) (f x4) (f x5) (f x6) (f x7) (f x8) (f x9)
 
-boardToList :: Board Cell -> [Cell]
-boardToList (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
-    [c1, c2, c3, c4, c5, c6, c7, c8, c9]
+instance Foldable Board where 
+    foldr f b (Board a1 a2 a3 a4 a5 a6 a7 a8 a9) = 
+        f a9 $ f a8 $ f a7 $ f a6 $ f a5 $ f a4 $ f a3 $ f a2 $ f a1 b
+
 
 boardToRows :: Board Cell -> [[Cell]]
 boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
@@ -97,11 +98,8 @@ boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     , [c3, c5, c7]
     ]
 
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/main
 boardIsFull :: Board Cell -> Bool
-boardIsFull board = not (any isE (boardToList board))
+boardIsFull board = not $ any isE board
 
 updateBoard :: Board Cell -> Cell -> Board Cell
 updateBoard board cell = fmap func board
