@@ -5,7 +5,7 @@ import           Board
 
 data GameStatus = Playing | OWon | XWon | NoWinner deriving Eq
 
-getGameStatus :: Board -> GameStatus
+getGameStatus :: Board Cell -> GameStatus
 getGameStatus board | playerOWon board  = OWon
                     | playerXWon board  = XWon
                     | boardIsFull board = NoWinner
@@ -29,10 +29,10 @@ strToNumber n = case n of
     "9" -> Just 9
     _   -> Nothing
 
-advanceGame :: Board -> Player -> IO ()
+advanceGame :: Board Cell -> Player -> IO ()
 advanceGame board player = do
     clearScreen
-    putStrLn $ show board
+    putStrLn $ drawBoard board
     case getGameStatus board of
         OWon -> do
             putStrLn "Player O Wins."
