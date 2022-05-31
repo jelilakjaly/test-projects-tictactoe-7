@@ -21,6 +21,7 @@ indexOf (X i) = i
 
 data Board a = Board a a a a a a a a a
 
+boardLine :: [Char]
 boardLine = "+---------+---------+---------+"
 
 makeLines :: Cell -> Cell -> Cell -> [Char]
