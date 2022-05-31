@@ -96,16 +96,16 @@ instance Foldable Board where
         f a9 $ f a8 $ f a7 $ f a6 $ f a5 $ f a4 $ f a3 $ f a2 $ f a1 b
 
 
-boardToRows :: Board Cell -> [[Cell]]
+boardToRows :: Board Cell -> [Row Cell]
 boardToRows (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
-    [ [c1, c2, c3]
-    , [c4, c5, c6]
-    , [c7, c8, c9]
-    , [c1, c4, c7]
-    , [c2, c5, c8]
-    , [c3, c6, c9]
-    , [c1, c5, c9]
-    , [c3, c5, c7]
+    [ Row c1 c2 c3
+    , Row c4 c5 c6
+    , Row c7 c8 c9
+    , Row c1 c4 c7
+    , Row c2 c5 c8
+    , Row c3 c6 c9
+    , Row c1 c5 c9
+    , Row c3 c5 c7
     ]
 
 boardIsFull :: Board Cell -> Bool
