@@ -127,21 +127,16 @@ instance Show Player where
 
 
 playerOWon :: Board Cell -> Bool
-playerOWon b = playerWon b PlayerO
+playerOWon board = won $ boardToRows board
+   where 
+       won [] = False 
+       won (row:rest) = all isO row || won rest
 
 playerXWon :: Board Cell -> Bool
-playerXWon b = playerWon b PlayerX
-
-playerWon :: Board Cell -> Player -> Bool
-playerWon board player = True `elem` checkRows
-  where
-    checkRows :: [Bool]
-    checkRows = map (all isFunc) (boardToRows board)
-
-    isFunc :: (Cell -> Bool)
-    isFunc = case player of
-        PlayerO -> isO
-        PlayerX -> isX
+playerXWon board = won $ boardToRows board
+    where 
+        won [] = False
+        won (row:rest) = all isX row || won rest
 
 nextPlayer :: Player -> Player
 nextPlayer player = case player of
