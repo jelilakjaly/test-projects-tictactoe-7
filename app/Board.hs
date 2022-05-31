@@ -19,6 +19,16 @@ indexOf (E i) = i
 indexOf (O i) = i
 indexOf (X i) = i
 
+data Row a = Row a a a
+    deriving Eq
+
+instance Functor Row where
+    fmap f (Row x1 x2 x3) = Row (f x1) (f x2) (f x3)
+
+instance Foldable Row where
+    foldr f b (Row x1 x2 x3) = f x3 $ f x2 $ f x1 b
+
+
 data Board a = Board a a a a a a a a a
 
 boardLine :: [Char]
@@ -81,8 +91,8 @@ instance Functor Board where
     fmap f (Board x1 x2 x3 x4 x5 x6 x7 x8 x9) =
         Board (f x1) (f x2) (f x3) (f x4) (f x5) (f x6) (f x7) (f x8) (f x9)
 
-instance Foldable Board where 
-    foldr f b (Board a1 a2 a3 a4 a5 a6 a7 a8 a9) = 
+instance Foldable Board where
+    foldr f b (Board a1 a2 a3 a4 a5 a6 a7 a8 a9) =
         f a9 $ f a8 $ f a7 $ f a6 $ f a5 $ f a4 $ f a3 $ f a2 $ f a1 b
 
 
