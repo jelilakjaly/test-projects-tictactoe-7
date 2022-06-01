@@ -128,15 +128,15 @@ instance Show Player where
 
 playerOWon :: Board Cell -> Bool
 playerOWon board = won $ boardToRows board
-   where 
-       won [] = False 
-       won (row:rest) = all isO row || won rest
+  where
+    won []           = False
+    won (row : rest) = all isO row || won rest
 
 playerXWon :: Board Cell -> Bool
 playerXWon board = won $ boardToRows board
-    where 
-        won [] = False
-        won (row:rest) = all isX row || won rest
+  where
+    won []           = False
+    won (row : rest) = all isX row || won rest
 
 nextPlayer :: Player -> Player
 nextPlayer player = case player of
