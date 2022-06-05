@@ -1,6 +1,5 @@
-## Tic Tac Toe Game 6
+## Tic Tac Toe Game 7
 
-This is an updated version of tictactoe-5 game. 
+This is an updated version of tictactoe-6 game. 
 
-Here I update the Board to make it more abstract and make it instance of Functor
-and Foldable and adjust the codes to make use of those changes.
+Here I want to add config and use Reader Monad for it
