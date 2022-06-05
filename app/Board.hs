@@ -1,5 +1,7 @@
 module Board where
 
+import           Config                         ( BoardSize(..) )
+
 data Cell = E Int | X Int | O Int deriving (Eq)
 
 isE :: Cell -> Bool
@@ -69,9 +71,8 @@ makePiece3 (E _) = "         "
 makePiece3 (O _) = "  * * *  "
 makePiece3 (X _) = "    *    "
 
-
-drawBoard :: Board Cell -> String
-drawBoard (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
+drawBigBoard :: Board Cell -> String
+drawBigBoard (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
     boardLine
         ++ "\n"
         ++ makeLines c1 c2 c3
@@ -86,6 +87,50 @@ drawBoard (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) =
         ++ "\n"
         ++ boardLine
         ++ "\n"
+
+smallBoardRaw :: String
+smallBoardRaw =
+    "+---+---+---+"
+        ++ "\n"
+        ++ "| 1 | 2 | 3 |"
+        ++ "\n"
+        ++ "+---+---+---+"
+        ++ "\n"
+        ++ "| 4 | 5 | 6 |"
+        ++ "\n"
+        ++ "+---+---+---+"
+        ++ "\n"
+        ++ "| 7 | 8 | 9 |"
+        ++ "\n"
+        ++ "+---+---+---+"
+
+drawSmallBoard :: Board Cell -> String
+drawSmallBoard (Board c1 c2 c3 c4 c5 c6 c7 c8 c9) = fmap replace smallBoardRaw
+  where
+    replace :: Char -> Char
+    replace c = case c of
+        '1' -> charOf c1
+        '2' -> charOf c2
+        '3' -> charOf c3
+        '4' -> charOf c4
+        '5' -> charOf c5
+        '6' -> charOf c6
+        '7' -> charOf c7
+        '8' -> charOf c8
+        '9' -> charOf c9
+        x   -> x
+    charOf :: Cell -> Char
+    charOf cell = case cell of
+        E _ -> ' '
+        X _ -> 'X'
+        O _ -> 'O'
+
+drawBoard :: Board Cell -> BoardSize -> String
+drawBoard board size = case size of
+    Small -> drawSmallBoard board
+    Big   -> drawBigBoard board
+
+
 
 instance Functor Board where
     fmap f (Board x1 x2 x3 x4 x5 x6 x7 x8 x9) =

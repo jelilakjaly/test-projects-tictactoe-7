@@ -1,6 +1,7 @@
 module Main where
 
 import           Board
+import           Config                         ( BoardSize(Small) )
 
 
 data GameStatus = Playing | OWon | XWon | NoWinner deriving Eq
@@ -32,7 +33,7 @@ strToNumber n = case n of
 advanceGame :: Board Cell -> Player -> IO ()
 advanceGame board player = do
     clearScreen
-    putStrLn $ drawBoard board
+    putStrLn $ drawBoard board Small
     case getGameStatus board of
         OWon -> do
             putStrLn "Player O Wins."
